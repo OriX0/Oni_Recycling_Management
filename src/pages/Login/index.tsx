@@ -18,10 +18,18 @@ import {
 import LoginScreen from './login';
 import RegisterScreens from './register';
 import { Button } from 'antd';
+import { ConnectRC, Loading, connect } from 'umi';
 
-const LoginPage: FC = () => {
+const LoginPage: ConnectRC = (props) => {
   const [isRegister, setIsRegister] = useState(true);
-
+  const { dispatch } = props;
+  const handleSubmit = (value: any) => {
+    console.log('get value', value);
+    dispatch({
+      type: 'user/login',
+      payload: value,
+    });
+  };
   return (
     <>
       <BgImgWrapper>
@@ -32,7 +40,7 @@ const LoginPage: FC = () => {
           <img src={LeftImg} style={{ width: 500 }} alt="" />
         </LeftImgWrapper>
         <LoginBox>
-          <FormContainer>
+          <FormContainer onFinish={handleSubmit}>
             <img src={AvatarImg} alt="" style={{ width: 100 }} />
             <Title>回收管理系统</Title>
             {isRegister ? <LoginScreen /> : <RegisterScreens />}
@@ -51,4 +59,4 @@ const LoginPage: FC = () => {
   );
 };
 
-export default LoginPage;
+export default connect()(LoginPage);

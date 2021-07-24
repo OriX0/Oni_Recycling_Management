@@ -22,4 +22,11 @@ export default defineConfig({
   theme: {
     'primary-color': '#06b799',
   },
+  proxy: {
+    '/api': {
+      target: 'http://localhost:5001/',
+      changeOrigin: true,
+      // 'pathRewrite': { '^/api' : '' },
+    },
+  },
 });
