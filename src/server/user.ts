@@ -4,14 +4,16 @@
  * @LastEditors: OriX
  */
 
-import request from 'umi-request';
-import db from '@/utils/db';
+import request from '@/utils/request';
 import { AuthInfo } from '@/types/user';
 
 export async function accountLogin(params: AuthInfo) {
-  console.log(params);
-  return request('/api/auth/login', {
+  return request('/auth/login', {
     method: 'POST',
     data: params,
   });
+}
+
+export async function accountLogout() {
+  return request.post('/auth/logout');
 }

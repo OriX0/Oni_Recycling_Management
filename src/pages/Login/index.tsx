@@ -17,18 +17,25 @@ import {
 } from './style';
 import LoginScreen from './login';
 import RegisterScreens from './register';
-import { Button } from 'antd';
-import { ConnectRC, Loading, connect } from 'umi';
+import { Button, message } from 'antd';
+import { ConnectRC, connect } from 'umi';
+import { useForm } from 'antd/lib/form/Form';
 
 const LoginPage: ConnectRC = (props) => {
-  const [isRegister, setIsRegister] = useState(true);
+  const [isRegister, setIsRegister] = useState(false);
+  const [loginForm] = useForm();
   const { dispatch } = props;
   const handleSubmit = (value: any) => {
-    console.log('get value', value);
-    dispatch({
-      type: 'user/login',
-      payload: value,
-    });
+    if (!isRegister) {
+      dispatch({
+        type: 'user/login',
+        payload: value,
+      });
+    } else {
+      message.warn(
+        '抱歉,该系统为公司内部使用不开放注册,该页面只是用来做交互测试的',
+      );
+    }
   };
   return (
     <>
@@ -40,14 +47,15 @@ const LoginPage: ConnectRC = (props) => {
           <img src={LeftImg} style={{ width: 500 }} alt="" />
         </LeftImgWrapper>
         <LoginBox>
-          <FormContainer onFinish={handleSubmit}>
+          <FormContainer onFinish={handleSubmit} form={loginForm}>
             <img src={AvatarImg} alt="" style={{ width: 100 }} />
             <Title>回收管理系统</Title>
-            {isRegister ? <LoginScreen /> : <RegisterScreens />}
+            {isRegister ? <RegisterScreens /> : <LoginScreen />}
             <Button
               type="link"
               onClick={() => {
                 setIsRegister(!isRegister);
+                loginForm.resetFields();
               }}
             >
               {isRegister ? '已有账号,马上登录' : '没有账号,马上注册'}
