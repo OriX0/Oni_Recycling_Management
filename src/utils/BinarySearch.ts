@@ -19,7 +19,7 @@ export function binarySearch<T, VT>(
   let end = list.length - 1;
   let middleIndex = null;
   while (start <= end) {
-    middleIndex = Math.floor((start - end) / 2);
+    middleIndex = Math.floor((start + end) / 2);
     let middleValue = list[middleIndex];
     let compareRes: CompareResult = compareFn(middleValue, value);
     if (compareRes === CompareResult.eq) {

@@ -29,4 +29,5 @@ export default defineConfig({
       // 'pathRewrite': { '^/api' : '' },
     },
   },
+  publicPath: '/',
 });
