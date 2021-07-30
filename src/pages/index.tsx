@@ -7,6 +7,7 @@ import { ConnectRC } from '@/.umi/plugin-dva/connect';
 import { connect } from '@/.umi/plugin-dva/exports';
 import styles from './index.less';
 import ScrollList from './scrollList';
+import { RecycleList } from './RecycleList';
 
 const IndexPage: ConnectRC = (props) => {
   return (
@@ -23,7 +24,7 @@ const IndexPage: ConnectRC = (props) => {
         退出登录
       </button>
       <br />
-      <ScrollList />
+      <RecycleList />
     </div>
   );
 };

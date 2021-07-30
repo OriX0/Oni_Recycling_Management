@@ -16,3 +16,14 @@ export const useDebounce = <V>(value: V, wait: number) => {
   }, [value, wait]);
   return debounceValue;
 };
+
+export function generateMockDataArr<T>(
+  mockLength: number,
+  generateDataFn: (i: number) => T,
+): T[] {
+  const tempDataArr = [];
+  for (let i = 0; i < mockLength; i++) {
+    tempDataArr.push(generateDataFn(i));
+  }
+  return tempDataArr;
+}
