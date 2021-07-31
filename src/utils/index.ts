@@ -27,3 +27,11 @@ export function generateMockDataArr<T>(
   }
   return tempDataArr;
 }
+
+export function delay(time: number) {
+  return new Promise<void>((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}

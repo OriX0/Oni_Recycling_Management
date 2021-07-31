@@ -5,7 +5,7 @@
  */
 import { List } from './list';
 
-export function RecycleList() {
+export default function RecycleList() {
   return (
     <>
       <List />

@@ -4,8 +4,9 @@
  * @LastEditors: OriX
  */
 import projectStorage from '@/utils/projectStorage';
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 import { RecycleRowData } from '@/types/recycleList';
+import { Link } from 'umi';
 
 const handleIdClick = (id: string) => {
   console.log('id', id);
@@ -16,8 +17,18 @@ const columns = [
     title: '学生id',
     dataIndex: 'studentId',
     width: 300,
-    render: (text: string) => {
-      return <a onClick={() => handleIdClick(text)}>{text}</a>;
+    render: (text: string, record: RecycleRowData) => {
+      return (
+        <Link
+          to={{
+            // pathname: location.pathname,
+            pathname: `/test/${record.studentId}`,
+            search: `?id=${record.studentId}&editing=1`,
+          }}
+        >
+          {text}
+        </Link>
+      );
     },
   },
   {
@@ -37,11 +48,13 @@ const data: any[] = projectStorage.getItem('recycleList') || [];
 
 export function List() {
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      pagination={{ pageSize: 50 }}
-      scroll={{ y: 240 }}
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{ pageSize: 50 }}
+        scroll={{ y: 240 }}
+      />
+    </>
   );
 }

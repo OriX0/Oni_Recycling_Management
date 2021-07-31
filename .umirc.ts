@@ -16,6 +16,16 @@ export default defineConfig({
       path: '/login',
       component: '../pages/Login',
     },
+    {
+      exact: false,
+      path: '/recycleList',
+      component: '@/pages/RecycleList',
+    },
+    {
+      exact: false,
+      path: '/test/:id',
+      component: '@/pages/demo',
+    },
   ],
   fastRefresh: {},
   mfsu: {},
