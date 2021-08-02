@@ -20,9 +20,10 @@ export interface RecycleListModelType {
     query: Effect;
     changeCurrent: Effect;
   };
-  reducer: {
+  reducers: {
     changeDetail: Reducer<RecycleListState>;
     getInfoByID: Reducer<RecycleListState>;
+    clearCurrentInfo: Reducer<RecycleListState>;
   };
 }
 const RecycleListModel: RecycleListModelType = {
@@ -34,26 +35,38 @@ const RecycleListModel: RecycleListModelType = {
   },
   effects: {
     *query({ payload }, { call, put }) {},
-    // TODO:测试put的第二个参数具体是什么
     *changeCurrent({ payload }, { call, put }) {
       // 模仿请求缓冲 等待几秒
-      yield call(delay(Math.ceil(Math.random() * 1000)));
-      yield put({
-        type: 'getInfoByID',
-        value: payload,
-      });
+      const delayTime = Math.ceil(Math.random() * 1000 * 3);
+      yield call(delay, delayTime);
+      if (+payload) {
+        yield put({
+          type: 'getInfoByID',
+          id: payload,
+        });
+      } else {
+        yield put({
+          type: 'clearCurrentInfo',
+        });
+      }
     },
   },
-  reducer: {
+  reducers: {
     changeDetail(state: any, action) {
       return { ...state, currentDetail: action.payload };
     },
     getInfoByID(state: RecycleListState | undefined, action) {
-      console.log(action);
       const currentInfo = state?.list.find(
-        (item) => item.studentId === action.payload,
+        (item) => item.studentId === +action.id,
       );
+      console.log('getInfoByID');
+      console.log('currentInfo', currentInfo);
       return { ...state, currentDetailInfo: currentInfo } as RecycleListState;
+    },
+    clearCurrentInfo(state) {
+      console.log('clearCurrentInfo');
+      return { ...state, currentDetailInfo: {} } as RecycleListState;
     },
   },
 };
+export default RecycleListModel;
