@@ -1,6 +1,5 @@
 /*
- * @Description: 通用型hook工具
- * @Author: OriX
+ * @Description: 通用型工具函数
  * @LastEditors: OriX
  */
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -35,3 +34,16 @@ export function delay(time: number) {
     }, time);
   });
 }
+export const isFalse = (value: unknown) => (value === 0 ? false : !value);
+export const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === '';
+export const cleanObj = (detailObj: { [key: string]: unknown }) => {
+  const cloneObj = { ...detailObj };
+  Object.keys(cloneObj).forEach((key) => {
+    const value = cloneObj[key];
+    if (isFalse(value)) {
+      delete cloneObj[key];
+    }
+  });
+  return cloneObj;
+};

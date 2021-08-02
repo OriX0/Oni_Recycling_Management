@@ -19,6 +19,14 @@ export enum RecycleStatus {
   success,
   failed,
 }
+export enum RecycleStatusCN {
+  '待回收',
+  '拒绝回收',
+  '同意回收等待上门',
+  '快递员联系中',
+  '回收成功',
+  '回收失败',
+}
 export interface RecycleRowData {
   studentId: number;
   status: number;
